@@ -1,0 +1,19 @@
+{
+  "name": "rsvp",
+  "version": "1.0.0",
+  "description": "rsvp api for jkbaclig.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbaclig/rsvp.git"
+  },
+  "author": "Jon Baclig",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jbaclig/rsvp/issues"
+  },
+  "homepage": "https://github.com/jbaclig/rsvp#readme"
+}
