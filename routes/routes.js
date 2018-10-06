@@ -1,27 +1,27 @@
-const { Pool } = require('pg');
-const pool = new Pool({
+const { Client } = require('pg');
+
+const client = new Client({
   connectionString: process.env.DATABASE_URL,
-  ssl: true
+  ssl: false,
 });
 
+var appRouter = (app) => {
+  app.get("/", function (req, res) {
+    console.log('db', process.env.DATABASE_URL);
+    res.status(200).send("Welcome to our restful API!!!");
+  });
 
-var appRouter = function (app) {
-    app.get("/", function(req, res) {
-      res.status(200).send("Welcome to our restful API!!!");
+  app.get('/db', (req, res) => {
+    client.connect();
+    client.query('SELECT * from rsvp;', (err, data) => {
+      if (err) throw err;
+      res.status(200).send(data);
+      /*for (let row of res.rows) {
+        console.log(JSON.stringify(row));
+      }*/
+      client.end();
     });
-
-    app.get('/db', async (req, res) => {
-        console.log('db');
-        try {
-          const client = await pool.connect()
-          const result = await client.query('SELECT * FROM test_table');
-          res.status(200).send(result);
-          client.release();
-        } catch (err) {
-          console.error(err);
-          res.send("Error " + err);
-        }
-      });
+  });
 }
-  
+
 module.exports = appRouter;   
