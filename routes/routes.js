@@ -9,12 +9,12 @@ var appRouter = (app) => {
   client.connect();
 
   app.use(function(req, res, next) {
-    let allowedOrigins = ['http://localhost:3000', 'http://jkbaclig.com'];
+    let allowedOrigins = ['http://localhost:3000', 'http://jkbaclig.com', 'http://162.204.180.196', 'http://192.168.1.73','https://127.0.0.1'];
     let origin = req.headers.origin;
+    console.log('origin:',origin)
     if(allowedOrigins.indexOf(origin) > -1){
       res.setHeader('Access-Control-Allow-Origin', origin);
     }
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
 
@@ -97,7 +97,7 @@ var appRouter = (app) => {
       `, (err, data) => {
         if (err) throw err;
         if(data) {
-          res.status(200).json(data);
+          res.status(200).json(data.rows);
         }
         else {
           res.status(200).send('No invites matching that name were found.  Please try another name.');
@@ -118,7 +118,7 @@ var appRouter = (app) => {
     try {
       client.query('SELECT * from rsvp;', (err, data) => {
         if (err) throw err;
-        res.status(200).send(data.rows);
+        res.status(200).send(data);
         
         /*for (let row of res.rows) {
           console.log(JSON.stringify(row));
