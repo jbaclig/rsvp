@@ -8,6 +8,16 @@ const client = new Client({
 var appRouter = (app) => {
   client.connect();
 
+  app.use(function(req, res, next) {
+    let allowedOrigins = ['http://localhost:3000', 'http://jkbaclig.com'];
+    let origin = req.headers.origin;
+    if(allowedOrigins.indexOf(origin) > -1){
+      res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
   app.get('/', function (req, res) {
     console.log('test');
     res.status(200).send('Welcome to our restful API!!!');
