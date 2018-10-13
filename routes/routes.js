@@ -118,7 +118,7 @@ var appRouter = (app) => {
     try {
       client.query('SELECT * from rsvp;', (err, data) => {
         if (err) throw err;
-        res.status(200).json(data);
+        res.status(200).send(data);
         
         /*for (let row of res.rows) {
           console.log(JSON.stringify(row));
