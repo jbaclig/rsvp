@@ -11,15 +11,14 @@ var appRouter = (app) => {
   app.use(function(req, res, next) {
     let allowedOrigins = ['http://localhost:3000', 'http://jkbaclig.com', 'http://162.204.180.196', 'http://192.168.1.73','https://127.0.0.1'];
     let origin = req.headers.origin;
-    console.log('origin:',origin)
     if(allowedOrigins.indexOf(origin) > -1){
       res.setHeader('Access-Control-Allow-Origin', origin);
     }
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
     next();
   });
 
   app.get('/', function (req, res) {
-    console.log('test');
     res.status(200).send('Welcome to our restful API!!!');
   });
 
@@ -61,11 +60,11 @@ var appRouter = (app) => {
   app.get('/group/:groupNum', (req, res) => {
     try {
       client.query(`
-        SELECT title, first_name, last_name FROM rsvp
+        SELECT * FROM rsvp
         WHERE group_num = ${req.params.groupNum}
       `, (err, data) => {
         if(err) throw err;
-        res.status(200).json(data);
+        res.status(200).json(data.rows);
       });
     }
     catch(err) {
@@ -76,11 +75,11 @@ var appRouter = (app) => {
   app.get('/id/:id', (req, res) => {
     try {
       client.query(`
-        SELECT title, first_name, last_name, group_num, allow_guest, attending, guest_attending FROM rsvp
+        SELECT * FROM rsvp
         WHERE id = ${req.params.id}
       `, (err, data) => {
         if(err) throw err;
-        res.status(200).json(data);
+        res.status(200).json(data.rows);
       });
     }
     catch(err) {
@@ -91,7 +90,7 @@ var appRouter = (app) => {
   app.get('/find/:firstName/:lastName', (req, res) => {
     try {
       client.query(`
-        SELECT title, first_name, last_name, group_num, allow_guest, attending, guest_attending FROM rsvp
+        SELECT * FROM rsvp
         WHERE lower(first_name) LIKE lower('${req.params.firstName}')
         AND lower(last_name) LIKE lower('${req.params.lastName}')
       `, (err, data) => {

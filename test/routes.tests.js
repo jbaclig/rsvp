@@ -10,7 +10,7 @@ describe('Routes', function() {
                 request.get(
                     'http://localhost:5000/id/1',
                     function(error, response, body) {
-                        expect(JSON.parse(body).rows[0]).to.deep.equal({
+                        expect(JSON.parse(body)[0]).to.deep.equal({
                             title: 'Mr.',
                             first_name: 'Crispin',
                             last_name: 'Baclig',
@@ -34,7 +34,7 @@ describe('Routes', function() {
                 request.get(
                     'http://localhost:5000/id/1',
                     function(error, response, body) {
-                        expect(JSON.parse(body).rows[0]).to.deep.equal({
+                        expect(JSON.parse(body)[0]).to.deep.equal({
                             title: 'Mr.',
                             first_name: 'Crispin',
                             last_name: 'Baclig',
@@ -59,7 +59,7 @@ describe('Routes', function() {
                 request.get (
                     'http://localhost:5000/find/Camille/Fritsch',
                     function(error, response, body) {
-                        expect(JSON.parse(body).rows[0]).to.deep.equal({
+                        expect(JSON.parse(body)[0]).to.deep.equal({
                             title: 'Mr.',
                             first_name: 'Camille',
                             last_name: 'Fritsch',
@@ -83,7 +83,7 @@ describe('Routes', function() {
                 request.get (
                     'http://localhost:5000/find/Camille/Fritsch',
                     function(error, response, body) {
-                        expect(JSON.parse(body).rows[0]).to.deep.equal({
+                        expect(JSON.parse(body)[0]).to.deep.equal({
                             title: 'Mr.',
                             first_name: 'Camille',
                             last_name: 'Fritsch',
