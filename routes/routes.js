@@ -9,9 +9,11 @@ var appRouter = (app) => {
   client.connect();
 
   app.use(function(req, res, next) {
-    let allowedOrigins = ['http://localhost:3000', 'https://jbaclig.github.io', 'http://jkbaclig.com', 'http://162.204.180.196', 'http://192.168.1.73','https://127.0.0.1'];
+    let allowedOrigins = ['http://localhost:3000', 'https://jbaclig.github.io', 
+      'http://jbaclig.github.io', 'https://rsvp.jkbaclig.com', 
+      'http://rsvp.jkbaclig.com', 'http://jkbaclig.com', 'https://jkbaclig.com', 
+      'http://162.204.180.196', 'http://192.168.1.73','https://127.0.0.1'];
     let origin = req.headers.origin;
-    console.log('origin:', origin);
     if(allowedOrigins.indexOf(origin) > -1){
       res.setHeader('Access-Control-Allow-Origin', origin);
     }
