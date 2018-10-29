@@ -25,6 +25,23 @@ var appRouter = (app) => {
     res.status(200).send('Welcome to our restful API!!!');
   });
 
+  app.get('/login/:username/:password', (req, res) => {
+    try {
+      client.query(`
+        SELECT * FROM users
+        WHERE username = '${req.params.username}'
+        AND password = crypt('${req.params.password}', password)
+      `, (err, data) => {
+        if(err) throw err;
+        res.status(200).json(data.rows);
+      });
+    }
+    catch(err) {
+      console.log('Error:', err);
+      res.status(500).send('Error: ', err)
+    }
+  });
+
   app.put('/rsvp/:guestId/attending/:attending', (req, res) => {
     try {
       client.query(`
@@ -120,7 +137,7 @@ var appRouter = (app) => {
     try {
       client.query('SELECT * from rsvp;', (err, data) => {
         if (err) throw err;
-        res.status(200).send(data);
+        res.status(200).send(data.rows);
         
         /*for (let row of res.rows) {
           console.log(JSON.stringify(row));
